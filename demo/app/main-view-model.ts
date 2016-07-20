@@ -12,10 +12,30 @@ export class HelloWorldModel extends Observable {
   }
 
 
-  public showPicker() {
-    console.log('showPicker()');
-    this._colorPicker.show();
+  public showARGBPicker() {
+    this._colorPicker.show('#3489db', 'ARGB').then((result) => {
+      this.set('selectedColor', result);
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
+
+  public showRGBPicker() {
+    this._colorPicker.show('#333', 'RGB').then((result) => {
+      this.set('selectedColor', result);
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+
+  public showHSVPicker() {
+    this._colorPicker.show('#fff000', 'HSV').then((result) => {
+      this.set('selectedColor', result);
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
 }

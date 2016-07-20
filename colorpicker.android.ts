@@ -3,67 +3,59 @@
 * https://twitter.com/BradWayneMartin
 * https://github.com/bradmartin
 * http://bradmartin.net
-* Open Source Lib : https://github.com/GrenderG/Color-O-Matic
+* Open Source Lib : https://github.com/MrBIMC/VintageChroma
 *************************************************************************************/
 
-import { platformNames } from "platform";
-import { Page } from "ui/page";
-import { topmost } from "ui/frame";
+import { isAndroid } from "platform";
+import { Color } from "color";
 import * as app from "application";
 
-// declare var android, es: any;
-declare var android, com: any;
+declare var com: any;
+
+const ChromaDialog = com.pavelsikun.vintagechroma.ChromaDialog;
+const ColorMode = com.pavelsikun.vintagechroma.colormode.ColorMode;
+const IndicatorMode = com.pavelsikun.vintagechroma.IndicatorMode;
+const OnColorSelectedListener = com.pavelsikun.vintagechroma.OnColorSelectedListener;
 
 export class ColorPicker {
-    // private _ColorPicker: es.dmoral.coloromatic.ColorOMaticDialog;
-    private ChromaDialog = com.pavelsikun.vintagechroma.ChromaDialog;
-    // private ColorOMatic = es.dmoral.coloromatic;
-    // private ColorMode = es.dmoral.coloromatic.colormode.ColorMode;
-    // private IndicatorMode = es.dmoral.coloromatic.IndicatorMode;
-    // private OnColorSelectedListener = es.dmoral.coloromatic.OnColorSelectedListener;
-
-    // private ColorOMatic = es.dmoral.coloromatic;
-    private ColorMode = com.pavelsikun.vintagechroma.colormode.ColorMode;
-    private IndicatorMode = com.pavelsikun.vintagechroma.IndicatorMode;
-    private OnColorSelectedListener = com.pavelsikun.vintagechroma.OnColorSelectedListener;
 
     constructor() {
-        console.log('Constructor() start...');
-    }
-
-
-
-    public show(initialColor: string = '#ffffff', colorMode: any = this.ColorMode.ARGB, indicatorMode: any = this.IndicatorMode.HEX, showColorIndicator: boolean = true) {
-        try {
-            // let mgr = topmost().android.activity.getFragmentManager();
-            let mgr = app.android.startActivity.getFragmentManager();
-            // let mgr = new android.support.v4.app.FragmentActivity().getSupportFragmentManager();
-            // let mgr = app.android.startActivity.getFragmentManager();
-            console.log('mgr: ' + mgr);
-
-
-            let builder = new com.pavelsikun.vintagechroma.ChromaDialog.Builder()
-                .initialColor(initialColor)
-                .colorMode(colorMode)
-                .indicatorMode(indicatorMode)
-                // .showColorIndicator(showColorIndicator)
-                .onColorSelected(new com.pavelsikun.vintagechroma.OnColorSelectedListener({
-
-                    onColorSelected: function (colorInt) {
-                        console.log('color selected: ' + colorInt);
-                    }
-
-                }))
-                .create();
-            console.log('builder: ' + builder);
-
-            builder.show(app.android.startActivity.getFragmentManager(), "ChromaDialog");
-
-        } catch (err) {
-            console.log(err);
+        if (!isAndroid) {
+            console.log('Not supported for iOS');
+            return;
         }
     }
 
+    public show(initialColor: string = '#FF4081', colorMode: any = 'RGB') {
+        return new Promise((resolve, reject) => {
+            try {
+                new ChromaDialog.Builder()
+                    .initialColor(new Color(initialColor).android)
+                    .colorMode(this._setColorMode(colorMode))
+                    .indicatorMode(IndicatorMode.HEX)
+                    .onColorSelected(new OnColorSelectedListener({
+                        onColorSelected: function (colorInt) {
+                            resolve(colorInt);
+                        }
+                    }))
+                    .create()
+                    .show(app.android.startActivity.getFragmentManager(), "ChromaDialog");
+            } catch (err) {
+                reject(err)
+            }
+        })
+    }
 
+    private _setColorMode(value: any): any {
+        if (value === 'RGB') {
+            return ColorMode.RGB;
+        } else if (value === 'ARGB') {
+            return ColorMode.ARGB;
+        } else if (value === 'HSV') {
+            return ColorMode.HSV;
+        } else {
+            return ColorMode.RGB;
+        }
+    }
 
 }

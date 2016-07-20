@@ -8,5 +8,5 @@ android {
 }
 
 dependencies {
-    compile 'com.pavelsikun:vintage-chroma:1.5'
+    compile 'com.pavelsikun:vintage-chroma:1.2'
 }
