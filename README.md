@@ -25,7 +25,7 @@ From your command prompt/terminal go to your app's root folder and execute:
 
 ## Usage
 
-###
+### XML
 ```XML
 <Page 
   xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
@@ -42,7 +42,7 @@ From your command prompt/terminal go to your app's root folder and execute:
 </Page>
 ```
 
-###
+### TS
 ```TS
 import { ColorPicker } from 'nativescript-color-picker';
 
@@ -62,4 +62,4 @@ let picker = new Color();
 
  Opens the color picker dialog.
 - **show(initialColor?: string, colorMode?: string): Promise<number>**
-    -- ColorMode { 'ARGB', 'RGB', 'HSV' }
+    - ColorMode { 'ARGB', 'RGB', 'HSV' }
