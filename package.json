@@ -1,6 +1,6 @@
 {
 	"name": "nativescript-color-picker",
-	"version": "1.0.1",
+	"version": "1.0.11",
 	"description": "NativeScript plugin to show a color picker dialog.",
 	"main": "colorpicker.js",
 	"nativescript": {

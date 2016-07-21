@@ -46,7 +46,7 @@ From your command prompt/terminal go to your app's root folder and execute:
 ```TS
 import { ColorPicker } from 'nativescript-color-picker';
 
-let picker = new Color();
+let picker = new ColorPicker();
 
  public showARGBPicker() {
     picker.show('#3489db', 'ARGB').then((result) => {
