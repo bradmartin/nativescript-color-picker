@@ -3,19 +3,18 @@
 
 # NativeScript Color Picker
 NativeScript plugin to show a color picker dialog.
- 
-*Android Only*
 
 ## Sample Usage
 
-Sample      |
-------------|
-![Sample](./screens/cpicker.gif) |
+Sample Android | Sample iOS
+------------| ------------
+![Sample](./screens/cpicker.gif) | ![Sample iOS](./screens/mscolorpicker.jpg)
 
 #### Native Library: 
-Android |
----------- |
-[MrBIMC/VintageChroma](https://github.com/MrBIMC/VintageChroma) |
+Android | iOS
+---------- | ----------
+[MrBIMC/VintageChroma](https://github.com/MrBIMC/VintageChroma) | [MSColorPicker](https://github.com/sgl0v/MSColorPicker)
+ARGB, RGB, HSV| RGB
 
 
 ## Installation
