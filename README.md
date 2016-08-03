@@ -8,9 +8,9 @@ NativeScript plugin to show a color picker dialog.
 
 Sample Android | Sample iOS
 ------------| ------------
-![Sample](./screens/cpicker.gif) | ![Sample iOS](./screens/mscolorpicker.jpg)
+![Sample](./screens/cpicker.gif) | ![Sample iOS](./screens/mscolorpicker.gif)
 
-#### Native Library: 
+#### Native Library:
 Android | iOS
 ---------- | ----------
 [MrBIMC/VintageChroma](https://github.com/MrBIMC/VintageChroma) | [MSColorPicker](https://github.com/sgl0v/MSColorPicker)
@@ -26,7 +26,7 @@ From your command prompt/terminal go to your app's root folder and execute:
 
 ### XML
 ```XML
-<Page 
+<Page
   xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
   <ActionBar title="Color Picker" />
   <StackLayout>

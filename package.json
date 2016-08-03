@@ -50,6 +50,7 @@
 	"homepage": "https://github.com/bradmartin/nativescript-color-picker",
 	"readmeFilename": "README.md",
 	"devDependencies": {
-		"typescript": "^1.8.10"
+		"typescript": "^1.8.10",
+		"tns-platform-declarations": "^2.0.0"
 	}
 }
