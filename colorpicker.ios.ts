@@ -47,7 +47,25 @@ export class ColorPicker {
 
                 let delegate = NSObject.extend({
                     colorViewControllerDidChangeColor(colorViewCntroller, color) {
-                        resolve(color);
+                        let components = CGColorGetComponents(color.CGColor);
+                        let red = lroundf(components[0] * 255);
+                        let green = lroundf(components[1] * 255);
+                        let blue = lroundf(components[2] * 255);
+
+                        switch(colorMode) {
+                            case 'ARGB':
+                                resolve(new Color(255, red, green, blue).argb);
+                                break;
+                            case 'RGB':
+                                resolve(red +',' + green + ',' + blue);
+                                break;
+                            case 'HEX':
+                                resolve(new Color(255, red, green, blue).hex);
+                                break;
+                            default:
+                                resolve('Not supported on iOS');
+                                break;
+                        }
                     },
                 }, {
                     protocols: [MSColorSelectionViewControllerDelegate]
