@@ -1,5 +1,6 @@
 import { Observable } from 'data/observable';
 import { ColorPicker } from 'nativescript-color-picker';
+import { isIOS } from "platform";
 
 var app = require('application');
 
@@ -40,7 +41,7 @@ export class HelloWorldModel extends Observable {
   }
 
   public showHEXPicker() {
-    if(app.ios) {
+    if(isIOS) {
       this._colorPicker.show('#fff000', 'HEX').then((result) => {
         this.set('selectedColor', result);
       }).catch((err) => {
