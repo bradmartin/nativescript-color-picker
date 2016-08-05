@@ -2,3 +2,7 @@ demo/
 screens/
 *.png
 *.log
+*.ts
+tsconfig.json
+!index.d.ts
+!colorpicker.d.ts
