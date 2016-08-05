@@ -5,11 +5,11 @@ import * as app from 'application';
 import {Color} from 'color';
 
 declare var interop: any,
-            MSColorSelectionViewController: any,
-            MSColorSelectionViewControllerDelegate: any,
-            UINavigationController: any,
-            UIBarButtonItem: any,
-            UIBarButtonItemStyleDone:any;
+    MSColorSelectionViewController: any,
+    MSColorSelectionViewControllerDelegate: any,
+    UINavigationController: any,
+    UIBarButtonItem: any,
+    UIBarButtonItemStyleDone: any;
 
 class ColorPickerImpl extends NSObject {
 
@@ -47,7 +47,33 @@ export class ColorPicker {
 
                 let delegate = NSObject.extend({
                     colorViewControllerDidChangeColor(colorViewCntroller, color) {
-                        resolve(color);
+                        let components = CGColorGetComponents(color.CGColor);
+                        let red = lroundf(components[0] * 255);
+                        let green = lroundf(components[1] * 255);
+                        let blue = lroundf(components[2] * 255);
+                        let alpha = lroundf(components[3] * 255);
+                        switch (colorMode) {
+                            case 'ARGB':
+                                resolve(new Color(alpha, red, green, blue).argb);
+                                break;
+                            case 'RGB':
+                                resolve(red + ', ' + green + ', ' + blue);
+                                break;
+                            case 'HEX':
+                                let hex = this.rgb2hex(red + ', ' + green + ', ' + blue + ', ' + alpha);
+                                resolve(hex);
+                                break;
+                            default:
+                                resolve('Not supported on iOS');
+                                break;
+                        }
+                    },
+                    rgb2hex(rgb: string) {
+                        let match = rgb.match(/[\s+]?[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/);
+                        return (match && match.length === 4) ? "#" +
+                            ("0" + parseInt(match[1], 10).toString(16)).slice(-2) +
+                            ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
+                            ("0" + parseInt(match[3], 10).toString(16)).slice(-2) : '';
                     },
                 }, {
                     protocols: [MSColorSelectionViewControllerDelegate]
@@ -60,7 +86,7 @@ export class ColorPicker {
                 colorSelectionController.navigationItem.rightBarButtonItem = doneBtn;
 
                 frame.topmost().currentPage.ios.presentViewControllerAnimatedCompletion(navCtrl, true, null);
-            } catch(err) {
+            } catch (err) {
                 reject(err);
             }
         });

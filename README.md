@@ -8,7 +8,7 @@ NativeScript plugin to show a color picker dialog.
 
 Sample Android | Sample iOS
 ------------| ------------
-![Sample](./screens/cpicker.gif) | ![Sample iOS](./screens/mscolorpicker.gif)
+![Sample](./screens/cpicker.gif) | ![Sample iOS](./screens/mscolorpicker_update.gif)
 
 #### Native Library:
 Android | iOS
