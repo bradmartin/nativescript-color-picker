@@ -6,4 +6,5 @@ screens/
 *.log
 *.ts
 tsconfig.json
+*.d.ts
 !index.d.ts
