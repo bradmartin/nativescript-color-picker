@@ -1,5 +1,11 @@
 [![npm](https://img.shields.io/npm/v/nativescript-color-picker.svg)](https://www.npmjs.com/package/nativescript-color-picker)
 [![npm](https://img.shields.io/npm/dt/nativescript-color-picker.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-color-picker)
+[![Build Status](https://travis-ci.org/bradmartin/nativescript-color-picker.svg?branch=master)](https://travis-ci.org/bradmartin/nativescript-color-picker)
+[![nStudio Plugin](https://img.shields.io/badge/nStudio-Plugin-blue.svg)](http://nstudio.io)
+[![Twitter Follow][twitter-image]][twitter-url]
+
+[twitter-image]:https://img.shields.io/twitter/follow/bradwaynemartin.svg?style=social&label=Follow%20me
+[twitter-url]:https://twitter.com/bradwaynemartin
 
 # NativeScript Color Picker
 NativeScript plugin to show a color picker dialog.

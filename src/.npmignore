@@ -1,0 +1,22 @@
+.vs/
+.vscode/
+demo/
+screens/
+*.png
+*.log
+*.ts
+tsconfig.json
+*.d.ts
+!index.d.ts
+# generated files
+.vs
+.vs/
+demo/
+screens/
+node_modules/
+
+*.ts
+!*.d.ts
+*.map
+tsconfig.json
+references.d.ts
