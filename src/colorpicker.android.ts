@@ -23,11 +23,8 @@ export class ColorPicker {
   public show(initialColor: string = "#FF4081", colorMode: any = "RGB") {
     return new Promise((resolve, reject) => {
       try {
-        debugger;
         const cMode = this._getColorMode(colorMode);
-        console.log(`cMode`, cMode);
-        
-        const dialog = new ChromaDialog.Builder()
+        new ChromaDialog.Builder()
           .initialColor(new Color(initialColor).android)
           .colorMode(cMode)
           .indicatorMode(IndicatorMode.HEX)
@@ -38,13 +35,11 @@ export class ColorPicker {
               }
             })
           )
-          .create();
-
-        console.log(`dialog`, dialog);
-        dialog.show(
-          app.android.foregroundActivity.getFragmentManager(),
-          "ChromaDialog"
-        );
+          .create()
+          .show(
+            app.android.foregroundActivity.getFragmentManager(),
+            "ChromaDialog"
+          );
       } catch (err) {
         reject(err);
       }
