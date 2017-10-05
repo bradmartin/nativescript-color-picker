@@ -6,7 +6,7 @@
     }
   },
   "dependencies": {
-    "nativescript-color-picker": "file:///Users/bradmartin/Desktop/nativescript-color-picker/src",
+    "nativescript-color-picker": "../src",
     "nativescript-unit-test-runner": "^0.3.4",
     "tns-core-modules": "^3.2.0"
   },
