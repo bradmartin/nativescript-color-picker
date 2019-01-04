@@ -1,11 +1,5 @@
-import * as app from "tns-core-modules/application";
-import { topmost } from "tns-core-modules/ui/frame";
-import { Color } from "tns-core-modules/color";
-
-declare var interop: any,
-  MSColorSelectionViewController: any,
-  MSColorSelectionViewControllerDelegate: any,
-  UIBarButtonItemStyleDone: any;
+import { Color } from 'tns-core-modules/color';
+import { topmost } from 'tns-core-modules/ui/frame';
 
 class ColorPickerImpl extends NSObject {
   private _owner: WeakRef<ColorPicker>;
@@ -34,11 +28,13 @@ export class ColorPicker {
 
   private _doneResolve: Function;
 
-  public show(initialColor: string = "#FF4081", colorMode: any = "RGB") {
+  public show(initialColor: string = '#FF4081', colorMode: any = 'RGB') {
     return new Promise((resolve, reject) => {
       try {
         this._doneResolve = resolve;
-        const colorSelectionController = new MSColorSelectionViewController();
+        const colorSelectionController = new MSColorSelectionViewController(
+          null
+        );
         colorSelectionController.color = new Color(initialColor).ios;
 
         const navCtrl = UINavigationController.alloc().initWithRootViewController(
@@ -55,20 +51,20 @@ export class ColorPicker {
                 let blue = lroundf(components[2] * 255);
                 let alpha = lroundf(components[3] * 255);
                 switch (colorMode) {
-                  case "ARGB":
+                  case 'ARGB':
                     ColorPicker.COLOR = new Color(alpha, red, green, blue).argb;
                     break;
-                  case "RGB":
-                    ColorPicker.COLOR = red + ", " + green + ", " + blue;
+                  case 'RGB':
+                    ColorPicker.COLOR = red + ', ' + green + ', ' + blue;
                     break;
-                  case "HEX":
+                  case 'HEX':
                     ColorPicker.COLOR = this.rgb2hex(
-                      red + ", " + green + ", " + blue + ", " + alpha
+                      red + ', ' + green + ', ' + blue + ', ' + alpha
                     );
                     break;
                   default:
                     ColorPicker.COLOR = undefined;
-                    resolve("Not supported on iOS");
+                    resolve('Not supported on iOS');
                     break;
                 }
               },
@@ -77,11 +73,11 @@ export class ColorPicker {
                   /[\s+]?[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/
                 );
                 return match && match.length === 4
-                  ? "#" +
-                      ("0" + parseInt(match[1], 10).toString(16)).slice(-2) +
-                      ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
-                      ("0" + parseInt(match[3], 10).toString(16)).slice(-2)
-                  : "";
+                  ? '#' +
+                      ('0' + parseInt(match[1], 10).toString(16)).slice(-2) +
+                      ('0' + parseInt(match[2], 10).toString(16)).slice(-2) +
+                      ('0' + parseInt(match[3], 10).toString(16)).slice(-2)
+                  : '';
               }
             },
             {
@@ -95,10 +91,10 @@ export class ColorPicker {
         this._impl = ColorPickerImpl.initWithOwner(new WeakRef(this));
 
         const doneBtn = UIBarButtonItem.alloc().initWithTitleStyleTargetAction(
-          "Done",
-          UIBarButtonItemStyleDone,
+          'Done',
+          UIBarButtonItemStyle.Done,
           this._impl,
-          "dismissViewController"
+          'dismissViewController'
         );
         colorSelectionController.navigationItem.rightBarButtonItem = doneBtn;
 

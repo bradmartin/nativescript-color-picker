@@ -1,12 +1,5 @@
-//default elements
-android {
-    productFlavors {
-        "nativescriptcolorpicker" {
-            dimension "nativescriptcolorpicker"
-        }
-    }
-}
+
 
 dependencies {
-    compile 'com.pavelsikun:vintage-chroma:1.2'
+    compile 'com.pavelsikun:vintage-chroma:1.5'
 }
