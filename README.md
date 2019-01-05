@@ -83,7 +83,7 @@ The install is the same, but be sure to run a clean of the platform directory af
 
     [TypeError: Cannot read property 'ColorMode' of undefined]
 
-Steps to install:
+#### Steps to install:
 
     # install the plugin
     npm install --save nativescript-color-picker
@@ -97,62 +97,64 @@ Steps to install:
 
 Once installed, you can pull in the module similar to the method noted above, the major difference being the template's tag directives for binding and events which are in the vue-style (e.g. `:text=""` to bind and `@tap=""` to listen):
 
-    <template>
-      <StackLayout>
-        <ActionBar title="Color Picker"/>
-        <Button text="Show RGB Picker" @tap="showColorPicker"/>
-        <StackLayout orientation="horizontal">
-          <Label class="selected-color">
-            <FormattedString>
-              <Span class="label" text="The selected color is: "/>
-              <Span class="value" :style="valueColor" :text="selectedColor"/>
-            </FormattedString>
-          </Label>
-        </StackLayout>
-      </StackLayout>
-    </template>
+```vue
+<template>
+  <StackLayout>
+    <ActionBar title="Color Picker" />
+    <Button text="Show RGB Picker" @tap="showColorPicker" />
+    <StackLayout orientation="horizontal">
+      <Label class="selected-color">
+        <FormattedString>
+          <Span class="label" text="The selected color is: " />
+          <Span class="value" :style="valueColor" :text="selectedColor" />
+        </FormattedString>
+      </Label>
+    </StackLayout>
+  </StackLayout>
+</template>
 
-    <script>
-    import { ColorPicker } from "nativescript-color-picker";
-    import { Color } from "tns-core-modules/Color";
+<script>
+import { ColorPicker } from 'nativescript-color-picker';
+import { Color } from 'tns-core-modules/Color';
 
-    export default {
-      data() {
-        return {
-          picker: null,
-          selectedColor: null
-        };
-      },
-      computed: {
-        valueColor() {
-          return {
-            color: this.selectedColor ? this.selectedColor.hex : ""
-          };
-        }
-      },
-      methods: {
-        showColorPicker() {
-          this.picker
-            .show("#3489db", "RGB")
-            .then(result => {
-              this.selectedColor = new Color(result);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }
-      },
-      created() {
-        this.picker = new ColorPicker();
-      }
+export default {
+  data() {
+    return {
+      picker: null,
+      selectedColor: null
     };
-    </script>
-
-    <style lang='scss' scoped>
-    .selected-color {
-      .value {
-        font-weight: bold;
-        font-size: 50px;
-      }
+  },
+  computed: {
+    valueColor() {
+      return {
+        color: this.selectedColor ? this.selectedColor.hex : ''
+      };
     }
-    </style>
+  },
+  methods: {
+    showColorPicker() {
+      this.picker
+        .show('#3489db', 'RGB')
+        .then(result => {
+          this.selectedColor = new Color(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  created() {
+    this.picker = new ColorPicker();
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.selected-color {
+  .value {
+    font-weight: bold;
+    font-size: 50px;
+  }
+}
+</style>
+```
