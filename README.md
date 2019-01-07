@@ -72,3 +72,89 @@ Opens the color picker dialog.
 
 - **show(initialColor?: string, colorMode?: string): Promise<number>**
   - ColorMode { 'ARGB', 'RGB', 'HSV' }
+
+## Nativescript-Vue implementation
+
+The nativescript vue implementation is slightly different due to the difference in the `.vue` template syntax.
+
+### Install and clean
+
+The install is the same, but be sure to run a clean of the platform directory after the plugin installation. If not, you could run into an error similar to this:
+
+    [TypeError: Cannot read property 'ColorMode' of undefined]
+
+#### Steps to install:
+
+    # install the plugin
+    npm install --save nativescript-color-picker
+
+    # Clean out the platforms directory if you've been developing for android
+    tns platform clean android
+    # Clean out the platforms directory if you've been developing for ios
+    tns platform clean ios
+
+### Code sample
+
+Once installed, you can pull in the module similar to the method noted above, the major difference being the template's tag directives for binding and events which are in the vue-style (e.g. `:text=""` to bind and `@tap=""` to listen):
+
+```vue
+<template>
+  <StackLayout>
+    <ActionBar title="Color Picker" />
+    <Button text="Show RGB Picker" @tap="showColorPicker" />
+    <StackLayout orientation="horizontal">
+      <Label class="selected-color">
+        <FormattedString>
+          <Span class="label" text="The selected color is: " />
+          <Span class="value" :style="valueColor" :text="selectedColor" />
+        </FormattedString>
+      </Label>
+    </StackLayout>
+  </StackLayout>
+</template>
+
+<script>
+import { ColorPicker } from 'nativescript-color-picker';
+import { Color } from 'tns-core-modules/Color';
+
+export default {
+  data() {
+    return {
+      picker: null,
+      selectedColor: null
+    };
+  },
+  computed: {
+    valueColor() {
+      return {
+        color: this.selectedColor ? this.selectedColor.hex : ''
+      };
+    }
+  },
+  methods: {
+    showColorPicker() {
+      this.picker
+        .show('#3489db', 'RGB')
+        .then(result => {
+          this.selectedColor = new Color(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  created() {
+    this.picker = new ColorPicker();
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.selected-color {
+  .value {
+    font-weight: bold;
+    font-size: 50px;
+  }
+}
+</style>
+```
