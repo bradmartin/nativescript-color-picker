@@ -45,11 +45,11 @@ export class ColorPicker {
           .extend(
             {
               colorViewControllerDidChangeColor(colorViewCntroller, color) {
-                let components = CGColorGetComponents(color.CGColor);
-                let red = lroundf(components[0] * 255);
-                let green = lroundf(components[1] * 255);
-                let blue = lroundf(components[2] * 255);
-                let alpha = lroundf(components[3] * 255);
+                const components = CGColorGetComponents(color.CGColor);
+                const red = lroundf(components[0] * 255);
+                const green = lroundf(components[1] * 255);
+                const blue = lroundf(components[2] * 255);
+                const alpha = lroundf(components[3] * 255);
                 switch (colorMode) {
                   case 'ARGB':
                     ColorPicker.COLOR = new Color(alpha, red, green, blue).argb;
@@ -69,7 +69,7 @@ export class ColorPicker {
                 }
               },
               rgb2hex(rgb: string) {
-                let match = rgb.match(
+                const match = rgb.match(
                   /[\s+]?[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/
                 );
                 return match && match.length === 4

@@ -1,17 +1,7 @@
-*.js
-*.js.map
-*.log
-*.d.ts
-!index.d.ts
-demo/app/*.js
-demo/*.d.ts
-demo/platforms
-demo/node_modules
-demo/lib
-node_modules
 .vscode
 .idea
 .DS_Store
+*.esm.json
 *.js
 *.js.map
 *.log
@@ -33,5 +23,6 @@ publish/src
 publish/package
 demo/report/report.html
 demo/report/stats.json
+!demo-vue/app/app.js
 
-!src/typings
+!webpack.config.js

@@ -9,7 +9,13 @@
 import * as app from 'tns-core-modules/application';
 import { Color } from 'tns-core-modules/color';
 
-declare var com: any;
+// const AppCompatActivity_Namespace = useAndroidX()
+//   ? androidx.appcompat.app
+//   : (android.support as any).v7.app;
+// function useAndroidX() {
+//   return global.androidx && androidx.appcompat;
+// }
+declare var com, global: any;
 
 export class ColorPicker {
   constructor() {}
@@ -18,6 +24,8 @@ export class ColorPicker {
     return new Promise((resolve, reject) => {
       try {
         const cMode = this._getColorMode(colorMode);
+        const activity =
+          app.android.foregroundActivity || app.android.startActivity;
         new com.pavelsikun.vintagechroma.ChromaDialog.Builder()
           .initialColor(new Color(initialColor).android)
           .colorMode(cMode)
@@ -30,11 +38,7 @@ export class ColorPicker {
             })
           )
           .create()
-          .show(
-            (app.android
-              .foregroundActivity as android.support.v7.app.AppCompatActivity).getSupportFragmentManager(),
-            'ChromaDialog'
-          );
+          .show(activity.getSupportFragmentManager(), 'ChromaDialog');
       } catch (err) {
         reject(err);
       }
